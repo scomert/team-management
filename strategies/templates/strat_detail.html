@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p><a href="{% url 'strats:strats-step-add' strat.id %}">Add a new step</a></p>
+
+    {% for step in steps %}
+        <p>
+        {{ step.command }}
+        <img src="{{ step.image.oyun.url }}"/>
+        {{ step.user }}
+        {{ step.strategy }}
+        </p>
+    {% endfor %}
+
+    <p>see all strategies for that map <a href="{% url 'maps:map-detail' strat.map.id %}"><b>-></b></a></p>
+</body>
+</html>
