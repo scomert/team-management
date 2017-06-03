@@ -1,1 +1,1 @@
-this is a project that i work in my free time. I will rarely develop this one. It basically provides you to manage your team's tactics. This may be developed to be sold to some e-sports teams. 
+this is a project that i work in my free time. I will rarely develop this one. It basically provides you to manage your team's tactics. This may be developed to be sold to some e-sports teams.

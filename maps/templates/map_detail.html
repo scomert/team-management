@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detail</title>
-</head>
-<body>
-    <a href="{% url 'strats:strat-add' map.id %}">Add strategy</a>
-    Strategies:
-    <ul>
-    {% for strat in strategies %}
-        <li><a href="{% url 'strats:strat-detail' strat.id %}">{{ strat.name }}</a> </li>
-    {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "strat_detail.html" %}
+{% block content %}
+    <div class="text-center">
+        <div class="row">
+            <div class="pull-right">
+                <a href="{% url 'strats:strat-add' map.id %}">Add strategy</a>
+            </div>
+        </div>
+        <div class="row">
+            <ul>
+            {% for strat in strategies %}
+                <li style="list-style-type: none;"><a href="{% url 'strats:strat-detail' strat.id %}">{{ strat.name }}</a> </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

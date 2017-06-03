@@ -2,12 +2,11 @@
 from __future__ import unicode_literals
 
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Strategy, Steps
 from .forms import StratForm, StepForm
 from maps.models import Map
 from django.db.models import Q
-
 
 
 # Create your views here.
@@ -20,14 +19,14 @@ def authentication_filter(request):
 def strat_detail(request, id):
     authentication_filter(request)
     strat = Strategy.objects.get(id=id)
-    steps = Steps.objects.filter(user=request.user).filter(strategy=id)
+    steps = Steps.objects.filter(user=request.user).filter(strategy=id).order_by("priority")
     return render(request, "strat_detail.html", {"strat": strat, "steps": steps})
 
 
 def strat_add(request, map_id):
     authentication_filter(request)
     if request.method == "GET":
-        map = Map.objects.get(id=map_id)
+        map = get_object_or_404(Map, id=map_id)
         form = StratForm(initial={'map': map})
         return render(request, "strat_add.html", {"form": form, "map": map})
     else:
@@ -45,7 +44,8 @@ def step_add(request, strat_id):
     authentication_filter(request)
     strat = Strategy.objects.get(id=strat_id)
     if request.method == "GET":
-        form = StepForm()
+        CHOICES = [('0', 0), ('1', 1)]
+        form = StepForm(initial={'priority': CHOICES})
         return render(request, "step_add.html", {"form": form, "strat": strat})
     else:
         form = StepForm(request.POST or None, request.FILES or None)
@@ -58,6 +58,14 @@ def step_add(request, strat_id):
             return redirect("strats:strat-detail", id=strat_id)
         else:
             return HttpResponse(form.errors)
-        # s = Steps(command=form.cleaned_data['command'], image=form.cleaned_data['image'], strategy=int(strat_id), user=int(request.user.id))
-        # s.save()
-        # return redirect("strats:strat-detail", id=strat_id)
+            # s = Steps(command=form.cleaned_data['command'], image=form.cleaned_data['image'], strategy=int(strat_id), user=int(request.user.id))
+            # s.save()
+            # return redirect("strats:strat-detail", id=strat_id)
+
+
+def step_delete(request, id):
+    authentication_filter(request)
+    step = get_object_or_404(Steps, id=id)
+    if step:
+        step.delete()
+    return redirect("strats:strat-detail", id=str(step.strategy.id))
