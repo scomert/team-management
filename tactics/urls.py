@@ -20,11 +20,13 @@ from maps.urls import urlpatterns as maps_urls
 from strategies.urls import urlpatterns as strat_urls
 from tactics import settings
 from django.conf.urls.static import static
+from maps.views import list_maps
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(main_urls, namespace="main")),
     url(r'^maps/', include(maps_urls, namespace="maps")),
-    url(r'^strat/', include(strat_urls, namespace="strats"))
+    url(r'^strat/', include(strat_urls, namespace="strats")),
+    url(r'^$', list_maps, name="maps-list"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

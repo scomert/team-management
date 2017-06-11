@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Step</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block content %}
     <form method="post" action="{% url 'strats:strats-step-add' strat.id %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Add">
+        {{form|bootstrap }}
+        <input type="submit" value="Submit">
     </form>
-</body>
-</html>
+{% endblock %}

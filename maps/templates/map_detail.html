@@ -1,4 +1,4 @@
-{% extends "strat_detail.html" %}
+{% extends "base.html" %}
 {% block content %}
     <div class="text-center">
         <div class="row">
@@ -9,7 +9,7 @@
         <div class="row">
             <ul>
             {% for strat in strategies %}
-                <li style="list-style-type: none;"><a href="{% url 'strats:strat-detail' strat.id %}">{{ strat.name }}</a> </li>
+                <li style="list-style-type: none;"><a href="{% url 'strats:strat-detail' strat.id %}">{{ strat.name }}</a></li>
             {% endfor %}
             </ul>
         </div>

@@ -1,3 +1,4 @@
+{% load bootstrap %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
     Login page
     <form method="post" action="{% url 'main:login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|bootstrap }}
         <input type="submit" value="Login">
     </form>
 </body>

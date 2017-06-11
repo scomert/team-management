@@ -5,24 +5,20 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Map
 from .forms import MapForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
 
-def authentication_filter(request):
-    if not request.user.is_authenticated:
-        return redirect("main:login")
-
-
+@login_required
 def list_maps(request):
-    authentication_filter(request)
     maps = Map.objects.all()
     return render(request, "maps_index.html", {"maps": maps})
 
 
+@login_required
 def add_map(request):
-    authentication_filter(request)
     if request.method == "GET":
         form = MapForm()
         return render(request, "maps_add.html", {"form": form})
@@ -35,16 +31,16 @@ def add_map(request):
             return HttpResponse("Give valid paramaters")
 
 
+@login_required
 def delete_map(request, id):
-    authentication_filter(request)
     map = Map.objects.get(id=id)
     if map:
         map.delete()
     return redirect("maps:maps-list")
 
 
+@login_required
 def map_detail(request, id):
-    authentication_filter(request)
     map = Map.objects.get(id=id)
     strategies = map.strategy_set.all()
     return render(request, "map_detail.html", {"strategies": strategies, "map": map})

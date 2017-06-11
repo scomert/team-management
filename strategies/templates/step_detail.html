@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+
+{% block content %}
+    <form action="{% url 'strats:step-edit' step.id %}" method="POST">{% csrf_token %}
+        {{ form|bootstrap }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

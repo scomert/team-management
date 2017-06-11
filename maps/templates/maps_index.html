@@ -12,7 +12,7 @@
         <div class="row">
             <ul>
             {% for map in maps %}
-                <li style="list-style-type: none;"><a href="{% url 'maps:map-detail' map.id%}">{{ map.name }}</a> - <a href="{% url 'maps:map-delete' map.id %}">delete</a></li>
+                <li style="list-style-type: none;"><a href="{% url 'maps:map-detail' map.id%}">{{ map.name }}</a> - <a href="{% url 'maps:map-delete' map.id %}" onclick="return confirm('Are you sure you want to delete this item?');">delete</a></li>
             {% endfor %}
             </ul>
         </div>

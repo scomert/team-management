@@ -9,9 +9,6 @@ class StratForm(forms.ModelForm):
 
 
 class StepForm(forms.ModelForm):
-
-    priority = forms.ChoiceField()
-
     class Meta:
         model = Steps
         fields = ["user", "command", "priority", "image"]
